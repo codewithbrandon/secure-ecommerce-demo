@@ -139,6 +139,79 @@ export default function SuccessPage() {
           </div>
         </div>
 
+        {/* How We Protect Your Data - Simple Explanation */}
+        <div className="card p-6 md:p-10 mb-16 animate-fade-in-up" style={{ animationDelay: '450ms' }}>
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-secure-100 rounded-2xl mb-4">
+              <ShieldLockIcon className="w-8 h-8 text-secure-600" />
+            </div>
+            <h2 className="heading-3 mb-2">How We Protect Your Data</h2>
+            <p className="text-body max-w-2xl mx-auto">
+              Your payment was processed using the same security technology trusted by millions of businesses worldwide. Here's how it works in simple terms:
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {/* Step 1 */}
+            <div className="relative">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center text-primary-600 font-bold">
+                  1
+                </div>
+                <h3 className="font-semibold text-secondary-900">You Enter Your Card</h3>
+              </div>
+              <p className="text-secondary-600 text-sm leading-relaxed">
+                When you typed your card number, it went into a <strong>secure box</strong> created by Stripe — not our website. Think of it like putting your card into a bank's ATM instead of handing it to a stranger.
+              </p>
+              {/* Connector line (hidden on mobile) */}
+              <div className="hidden md:block absolute top-5 -right-4 w-8 h-0.5 bg-secondary-200" />
+            </div>
+
+            {/* Step 2 */}
+            <div className="relative">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 font-bold">
+                  2
+                </div>
+                <h3 className="font-semibold text-secondary-900">Instant Scrambling</h3>
+              </div>
+              <p className="text-secondary-600 text-sm leading-relaxed">
+                Your card number was immediately <strong>scrambled into a secret code</strong> (called a "token"). Even if someone intercepted it, they'd only see meaningless characters like "tok_1Nx7K9m..."
+              </p>
+              {/* Connector line (hidden on mobile) */}
+              <div className="hidden md:block absolute top-5 -right-4 w-8 h-0.5 bg-secondary-200" />
+            </div>
+
+            {/* Step 3 */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-secure-100 rounded-xl flex items-center justify-center text-secure-600 font-bold">
+                  3
+                </div>
+                <h3 className="font-semibold text-secondary-900">We Only See the Code</h3>
+              </div>
+              <p className="text-secondary-600 text-sm leading-relaxed">
+                Our website <strong>never sees your actual card number</strong> — only the scrambled code. Stripe handles the real payment directly with your bank. Your data stays safe, always.
+              </p>
+            </div>
+          </div>
+
+          {/* Simple analogy */}
+          <div className="mt-8 p-5 bg-secondary-50 rounded-2xl border border-secondary-100">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-soft-xs">
+                <LightbulbIcon className="w-5 h-5 text-amber-500" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-secondary-900 mb-1">Think of it like a hotel safe</h4>
+                <p className="text-secondary-600 text-sm leading-relaxed">
+                  You put your valuables in the safe, and the hotel gives you a receipt. The staff can confirm you used the safe, but they never see what's inside. That's exactly how tokenization protects your card!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Security Certifications */}
         <div className="bg-gradient-to-r from-secondary-900 to-secondary-800 rounded-3xl p-8 md:p-12 text-white mb-16 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
           <div className="text-center mb-8">
@@ -330,6 +403,23 @@ function ArrowRightIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
+  );
+}
+
+function ShieldLockIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    </svg>
+  );
+}
+
+function LightbulbIcon({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
     </svg>
   );
 }

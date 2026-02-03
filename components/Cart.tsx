@@ -40,13 +40,18 @@ export function CartSidebar() {
       />
 
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-soft-2xl z-50 flex flex-col animate-slide-in-right">
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping cart"
+        className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-soft-2xl z-50 flex flex-col animate-slide-in-right"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-secondary-100">
-          <h2 className="text-xl font-semibold text-secondary-900">Your Cart</h2>
+          <h2 id="cart-title" className="text-xl font-semibold text-secondary-900">Your Cart</h2>
           <button
             onClick={closeCart}
-            className="p-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-100 rounded-lg transition-colors"
+            className="p-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-100 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
             aria-label="Close cart"
           >
             <CloseIcon className="w-5 h-5" />
@@ -131,7 +136,7 @@ export function CartSidebar() {
             </p>
           </div>
         )}
-      </div>
+      </aside>
     </>
   );
 }

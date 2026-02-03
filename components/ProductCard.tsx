@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 import { Product, formatPrice } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 
@@ -10,16 +11,35 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddToCart = () => {
+    setIsAdding(true);
+    addItem(product);
+    setTimeout(() => setIsAdding(false), 600);
+  };
 
   return (
-    <div className="card-hover group">
+    <article
+      className="card-hover group"
+      aria-label={`${product.name} - ${formatPrice(product.price)}`}
+    >
       <div className="relative h-64 overflow-hidden bg-secondary-100">
+        {/* Loading skeleton */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-secondary-200 animate-pulse" />
+        )}
         <Image
           src={product.image}
-          alt={product.name}
+          alt={`${product.name} - ${product.description}`}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className={`object-cover transition-all duration-500 group-hover:scale-110 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onLoad={() => setImageLoaded(true)}
+          loading="lazy"
         />
         {/* Category Badge */}
         <div className="absolute top-4 left-4">
@@ -28,15 +48,21 @@ export function ProductCard({ product }: ProductCardProps) {
           </span>
         </div>
         {/* Quick Add Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-secondary-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-secondary-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          aria-hidden="true"
+        />
         <button
-          onClick={() => addItem(product)}
+          onClick={handleAddToCart}
+          aria-label={`Add ${product.name} to cart`}
           className="absolute bottom-4 left-4 right-4 btn bg-white text-secondary-900 py-3 rounded-xl font-semibold
                      opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0
-                     transition-all duration-300 hover:bg-primary-600 hover:text-white"
+                     focus:opacity-100 focus:translate-y-0
+                     transition-all duration-300 hover:bg-primary-600 hover:text-white
+                     focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
         >
-          <CartPlusIcon className="w-5 h-5" />
-          Add to Cart
+          <CartPlusIcon className={`w-5 h-5 ${isAdding ? 'animate-bounce' : ''}`} />
+          {isAdding ? 'Added!' : 'Add to Cart'}
         </button>
       </div>
 
@@ -50,19 +76,20 @@ export function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-2xl font-bold text-secondary-900">
+            <span className="text-2xl font-bold text-secondary-900" aria-label={`Price: ${formatPrice(product.price)}`}>
               {formatPrice(product.price)}
             </span>
           </div>
           <button
-            onClick={() => addItem(product)}
-            className="btn-primary py-2.5 px-5 text-sm md:hidden"
+            onClick={handleAddToCart}
+            aria-label={`Add ${product.name} to cart`}
+            className="btn-primary py-2.5 px-5 text-sm md:hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
           >
-            Add
+            {isAdding ? 'Added!' : 'Add'}
           </button>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

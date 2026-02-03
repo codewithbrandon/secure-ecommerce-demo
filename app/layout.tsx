@@ -10,7 +10,23 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: 'SecureShop - PCI-DSS Compliant E-Commerce Demo',
-  description: 'Experience secure online shopping with Stripe tokenization and bank-level encryption.',
+  description: 'Experience secure online shopping with Stripe tokenization and bank-level encryption. Your card data never touches our servers.',
+  keywords: ['e-commerce', 'secure payments', 'Stripe', 'PCI-DSS', 'tokenization', 'online shopping'],
+  authors: [{ name: 'SecureShop' }],
+  creator: 'SecureShop',
+  robots: 'index, follow',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'SecureShop',
+    title: 'SecureShop - Secure E-Commerce Demo',
+    description: 'Experience secure online shopping with Stripe tokenization and bank-level encryption.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SecureShop - Secure E-Commerce Demo',
+    description: 'Experience secure online shopping with Stripe tokenization and bank-level encryption.',
+  },
 };
 
 export const viewport: Viewport = {
@@ -27,10 +43,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans">
+      <body className="font-sans antialiased">
         <CartProvider>
+          {/* Skip to main content link for accessibility */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:shadow-lg"
+          >
+            Skip to main content
+          </a>
+
           {/* Header - Responsive */}
-          <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-secondary-100">
+          <header role="banner" className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-secondary-100">
             <div className="container-default">
               <div className="flex items-center justify-between h-14 sm:h-16 md:h-18">
                 {/* Logo */}
@@ -65,10 +89,10 @@ export default function RootLayout({
           </header>
 
           {/* Main Content */}
-          <main className="min-h-screen">{children}</main>
+          <main id="main-content" role="main" className="min-h-screen">{children}</main>
 
           {/* Footer - Responsive */}
-          <footer className="bg-secondary-900 text-secondary-400">
+          <footer role="contentinfo" className="bg-secondary-900 text-secondary-400">
             {/* Main Footer */}
             <div className="container-default py-10 sm:py-12 md:py-16">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
@@ -109,15 +133,15 @@ export default function RootLayout({
                 </div>
 
                 {/* Resources */}
-                <div>
+                <nav aria-label="Resources">
                   <h3 className="font-semibold text-white text-sm sm:text-base mb-3 sm:mb-4">Resources</h3>
                   <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
-                    <li><a href="#security" className="hover:text-white transition-colors">Security</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors">API Docs</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors">Integration</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors">Compliance</a></li>
+                    <li><a href="#security" className="hover:text-white focus:text-white focus:outline-none focus-visible:underline transition-colors">Security</a></li>
+                    <li><a href="#" className="hover:text-white focus:text-white focus:outline-none focus-visible:underline transition-colors">API Docs</a></li>
+                    <li><a href="#" className="hover:text-white focus:text-white focus:outline-none focus-visible:underline transition-colors">Integration</a></li>
+                    <li><a href="#" className="hover:text-white focus:text-white focus:outline-none focus-visible:underline transition-colors">Compliance</a></li>
                   </ul>
-                </div>
+                </nav>
 
                 {/* Demo Info */}
                 <div className="col-span-2 md:col-span-1">
@@ -140,11 +164,11 @@ export default function RootLayout({
                 <p className="text-xs sm:text-sm text-center sm:text-left">
                   Secure E-Commerce Demo &mdash; Next.js & Stripe
                 </p>
-                <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-                  <a href="#" className="hover:text-white transition-colors">Privacy</a>
-                  <a href="#" className="hover:text-white transition-colors">Terms</a>
-                  <a href="#" className="hover:text-white transition-colors">Security</a>
-                </div>
+                <nav aria-label="Legal" className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
+                  <a href="#" className="hover:text-white focus:text-white focus:outline-none focus-visible:underline transition-colors">Privacy</a>
+                  <a href="#" className="hover:text-white focus:text-white focus:outline-none focus-visible:underline transition-colors">Terms</a>
+                  <a href="#" className="hover:text-white focus:text-white focus:outline-none focus-visible:underline transition-colors">Security</a>
+                </nav>
               </div>
             </div>
           </footer>
